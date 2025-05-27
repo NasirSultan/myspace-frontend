@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
   ]
 
   return (
-    <div className="flex flex-col h-screen bg-white text-black transition-colors duration-300">
+    <div className="flex flex-col h-screen bg-white text-black">
       {/* Top Bar */}
       <div className="hidden md:flex p-4 justify-between items-center border-b border-gray-300 flex-shrink-0">
         <h1 className="text-2xl font-bold">My App</h1>
@@ -40,9 +40,8 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      {/* Content */}
-     <main className="flex-1 overflow-y-auto p-4 main-scrollbar">
-
+      {/* Content - scrollable but no visible scrollbar */}
+      <main className="flex-1 overflow-y-auto p-4 hide-scrollbar">
         {children}
       </main>
 
@@ -62,14 +61,14 @@ const Layout = ({ children }) => {
         ))}
       </nav>
 
-      {/* Add style tag here for demonstration, or add to your CSS file */}
+      {/* Hide scrollbar visually but keep scrolling */}
       <style>{`
-        .main-scrollbar::-webkit-scrollbar {
+        .hide-scrollbar::-webkit-scrollbar {
           display: none;
         }
-        .main-scrollbar {
+        .hide-scrollbar {
           -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
+          scrollbar-width: none;     /* Firefox */
         }
       `}</style>
     </div>
