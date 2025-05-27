@@ -41,7 +41,7 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Content */}
-      <main className="flex-1 overflow-y-auto p-4 small-scrollbar">
+      <main className="flex-1 md:overflow-y-auto p-4 main-scrollbar">
         {children}
       </main>
 
@@ -61,19 +61,15 @@ const Layout = ({ children }) => {
         ))}
       </nav>
 
-      {/* Styles */}
+      {/* Add style tag here for demonstration, or add to your CSS file */}
       <style>{`
-        /* Hide scrollbar on small screens */
-        @media (max-width: 767px) {
-          .small-scrollbar::-webkit-scrollbar {
-            display: none;
-          }
-          .small-scrollbar {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-          }
+        .main-scrollbar::-webkit-scrollbar {
+          display: none;
         }
-        /* On md+ screens, scrollbar visible (no override needed) */
+        .main-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
       `}</style>
     </div>
   )
