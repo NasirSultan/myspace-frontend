@@ -48,12 +48,12 @@ function App() {
   }, [showSuccessBtn]);
 
   return (
-    <div className="flex items-center justify-center p-6 w-full">
+    <div className="flex items-center justify-center p-6">
       <form
         onSubmit={handleSubmit}
         className="bg-gray-100 p-4 rounded-xl shadow-sm w-full max-w-4xl"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-purple-900">Contact Me</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-purple-800">Contact Me</h2>
 
         {showSuccessBtn && (
           <button

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Homepage() {
   return (
- <main className="text-black flex flex-col items-center justify-center px-6 py-20 lg:mt-40 md:mt-40 ">
+ <main className="text-black flex flex-col items-center justify-center px-6 py-20   ">
 
       {/* Welcome Section */}
       <section className="max-w-3xl space-y-8">
