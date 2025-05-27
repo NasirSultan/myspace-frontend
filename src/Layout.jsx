@@ -19,13 +19,11 @@ const Layout = ({ children }) => {
   ]
 
   return (
-    // Container fills full viewport height and hides body scrollbar by styles here
     <div className="flex flex-col h-screen bg-white text-black transition-colors duration-300">
-      {/* Top Bar - hidden on small screens */}
+      {/* Top Bar */}
       <div className="hidden md:flex p-4 justify-between items-center border-b border-gray-300 flex-shrink-0">
         <h1 className="text-2xl font-bold">My App</h1>
 
-        {/* Top buttons for md and larger screens */}
         <div className="flex gap-2">
           {navItems.map(({ to, label, icon }) => (
             <Link
@@ -43,11 +41,11 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Content */}
-      <main className="flex-1 md:overflow-y-auto p-4">
+      <main className="flex-1 md:overflow-y-auto p-4 main-scrollbar">
         {children}
       </main>
 
-      {/* Bottom navbar for small screens */}
+      {/* Bottom navbar */}
       <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center bg-gray-100 py-2 md:hidden border-t border-gray-300 flex-shrink-0">
         {navItems.map(({ to, label, icon }) => (
           <Link
@@ -62,6 +60,17 @@ const Layout = ({ children }) => {
           </Link>
         ))}
       </nav>
+
+      {/* Add style tag here for demonstration, or add to your CSS file */}
+      <style>{`
+        .main-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .main-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+      `}</style>
     </div>
   )
 }
