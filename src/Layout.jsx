@@ -41,7 +41,8 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Content */}
-      <main className="flex-1 md:overflow-y-auto p-4 main-scrollbar">
+     <main className="flex-1 overflow-y-auto p-4 main-scrollbar">
+
         {children}
       </main>
 
