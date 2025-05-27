@@ -48,10 +48,10 @@ function App() {
   }, [showSuccessBtn]);
 
   return (
-    <div className="flex items-center justify-center p-6">
+<div className="flex p-6 justify-center items-center min-h-screen md:items-start t md:min-h-0">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-100 p-4 rounded-xl shadow-sm w-full max-w-4xl"
+className="bg-gray-100 p-4 rounded-xl shadow-sm w-full max-w-4xl "
       >
         <h2 className="text-2xl font-bold mb-6 text-center text-purple-800">Contact Me</h2>
 
