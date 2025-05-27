@@ -41,9 +41,9 @@ const Layout = ({ children }) => {
       </div>
 
       {/* Scrollable content area with hidden scrollbar */}
-      <main className="flex-1 overflow-y-scroll px-4 py-2 scrollbar-hidden">
-        {children}
-      </main>
+<main className="flex-1 w-full overflow-y-scroll py-6 scrollbar-hidden flex items-center justify-center">
+  {children}
+</main>
 
       {/* Bottom Navbar (only on mobile) */}
       <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center bg-gray-100 py-2 md:hidden border-t border-gray-300">

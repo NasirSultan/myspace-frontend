@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Homepage() {
   return (
- <main className="text-black flex flex-col items-center justify-center px-6 py-20 overflow-y-auto hide-scrollbar ">
+ <main className="text-black flex flex-col items-center justify-center px-6 py-20 lg:mt-40 md:mt-40 ">
 
       {/* Welcome Section */}
       <section className="max-w-3xl space-y-8">
@@ -30,7 +30,7 @@ export default function Homepage() {
         <div className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto mt-6 justify-center">
           <a
             href="/Contact"
-            className="w-full md:w-auto lg:w-64 bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-purple-100 transition text-center text-sm md:text-base"
+            className="w-full md:w-auto lg:w-64 bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg shadow-xl hover:bg-purple-100 transition text-center text-sm md:text-base"
             aria-label="Contact Me"
           >
             Contact Me

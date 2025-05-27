@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 function App() {
   const [form, setForm] = useState({
     name: '',
     email: '',
-    number: '',
+    number: '', // <-- stored as 'number'
     subject: '',
     information: '',
   });
@@ -38,7 +40,6 @@ function App() {
     }
   };
 
-  // Optional: Auto-hide success button after 5 seconds
   useEffect(() => {
     if (showSuccessBtn) {
       const timer = setTimeout(() => setShowSuccessBtn(false), 5000);
@@ -47,12 +48,12 @@ function App() {
   }, [showSuccessBtn]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="flex items-center justify-center p-6 w-full">
       <form
         onSubmit={handleSubmit}
         className="bg-gray-100 p-4 rounded-xl shadow-sm w-full max-w-4xl"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Contact Me</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-purple-900">Contact Me</h2>
 
         {showSuccessBtn && (
           <button
@@ -75,6 +76,7 @@ function App() {
           className="mb-4 w-full p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           required
         />
+
         <input
           type="email"
           name="email"
@@ -84,27 +86,45 @@ function App() {
           className="mb-4 w-full p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           required
         />
-        <input
-          type="text"
-          name="number"
-          placeholder="Phone Number (OPTIONAL)"
-          value={form.number}
-          onChange={handleChange}
-          className="mb-4 w-full p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
+
+        {/* Phone number input with label on right */}
+        <div className="mb-4">
+          <div className="flex items-center justify-between gap-3">
+            <PhoneInput
+              country={'us'}
+              value={form.number}
+              onChange={(number) => setForm({ ...form, number })}
+              inputProps={{
+                name: 'number',
+                autoFocus: false,
+              }}
+              containerClass="flex-1"
+              inputClass="!w-full !p-2 !pl-12 !rounded !bg-white !border-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+              buttonClass="!border-none !bg-white"
+              dropdownClass="!bg-white !text-black"
+            />
+            <label className="whitespace-nowrap text-sm text-gray-700">
+               Optional
+            </label>
+          </div>
+        </div>
+
         <input
           type="text"
           name="subject"
           placeholder="Subject"
           value={form.subject}
           onChange={handleChange}
+          required
           className="mb-4 w-full p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
+
         <textarea
           name="information"
           placeholder="Your Message"
           value={form.information}
           onChange={handleChange}
+          required
           className="mb-4 w-full p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
           rows="3"
         ></textarea>
