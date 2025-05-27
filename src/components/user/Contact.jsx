@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [showSuccessBtn, setShowSuccessBtn] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,19 +24,30 @@ function App() {
     setMessage('');
     setError('');
     setShowSuccessBtn(false);
+    setLoading(true);
 
     try {
       const res = await axios.post('https://myspace-backend.vercel.app/api/contact', form);
-      setMessage(res.data.message);
       setForm({ name: '', email: '', number: '', subject: '', information: '' });
+      setMessage(res.data.message);
       setShowSuccessBtn(true);
     } catch (err) {
       setError(err.response?.data?.error || 'Submission failed.');
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Optional: Auto-hide success button after 5 seconds
+  useEffect(() => {
+    if (showSuccessBtn) {
+      const timer = setTimeout(() => setShowSuccessBtn(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessBtn]);
+
   return (
-    <div className="min-h-screen  flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <form
         onSubmit={handleSubmit}
         className="bg-gray-100 p-4 rounded-xl shadow-sm w-full max-w-4xl"
@@ -79,7 +91,6 @@ function App() {
           value={form.number}
           onChange={handleChange}
           className="mb-4 w-full p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-          required
         />
         <input
           type="text"
@@ -95,14 +106,19 @@ function App() {
           value={form.information}
           onChange={handleChange}
           className="mb-4 w-full p-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-          rows="2"
+          rows="3"
         ></textarea>
 
         <button
           type="submit"
-          className="w-full bg-purple-900 text-white py-2 rounded hover:bg-purple-800 transition"
+          disabled={loading}
+          className={`w-full py-2 rounded transition ${
+            loading
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-purple-900 hover:bg-purple-800 text-white'
+          }`}
         >
-          Submit
+          {loading ? 'Submitting...' : 'Submit'}
         </button>
       </form>
     </div>

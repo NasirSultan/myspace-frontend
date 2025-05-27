@@ -8,23 +8,23 @@ export default function Homepage() {
       {/* Welcome Section */}
       <section className="max-w-3xl space-y-8">
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold drop-shadow-lg ">
-          Welcome to My World
+        Welcome to My Space
         </h1>
 
         {/* Left aligned name section */}
         <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 drop-shadow-lg text-purple-900 text-left">
-          Hi, I'm <span className="underline decoration-purple-400">Nasir Sultan</span> — Freelancer, Full Stack Developer & Writer
+         Hi, I’m <span className="underline decoration-purple-400 font-semibold">Nasir Sultan</span> — a Freelance Full Stack Developer, Creative Writer, and Problem Solver.
         </div>
 
         {/* Left aligned welcome text */}
         <div className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-gray-700 text-left">
-          <p className="mb-4">
-            Crafting innovative solutions, designing elegant experiences, and sharing valuable insights through blogs and detailed documentation.
-          </p>
-          <p>
-            Whether you're looking for a skilled freelancer, a showcase of my portfolio, or thoughtful articles, you've come to the right place. Join me on this journey where technology meets creativity and knowledge empowers growth.
-          </p>
-        </div>
+  <p className="mb-4">
+    Building robust full-stack applications, crafting seamless user experiences, and sharing technical insights through in-depth blogs and comprehensive documentation.
+  </p>
+  <p>
+    Whether you’re seeking a dedicated freelancer, exploring my portfolio, or diving into practical development articles, you’re in the right place. Let’s embark on a journey where cutting-edge technology meets creativity, and knowledge drives innovation.
+  </p>
+</div>
 
         {/* Buttons */}
         <div className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto mt-6 justify-center">
