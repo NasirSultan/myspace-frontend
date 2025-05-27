@@ -17,8 +17,16 @@ const skills = [
 ];
 
 const ProfileCard = () => {
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`${text} copied to clipboard`);
+    });
+  };
+
   const handleWhatsAppClick = () => {
-    window.open('https://wa.me/1234567890', '_blank');
+    const number = '+1234567890';
+    handleCopy(number);
+    window.open(`https://wa.me/${number.replace('+', '')}`, '_blank');
   };
 
   const openSocialLink = (url) => {
@@ -27,11 +35,11 @@ const ProfileCard = () => {
 
   return (
     <div className="flex justify-center items-center w-full px-4 py-6">
-      <div className="flex flex-col items-center bg-white p-4 rounded-2xl w-full max-w-4xl shadow-lg">
+      <div className="flex flex-col items-center bg-white p-4 rounded-2xl w-full max-w-4xl">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbLLp5QgincQyF-54dj_7g31vcZMd7xkpgKw&s"
           alt="Profile"
-          className="w-28 h-28 rounded-full object-cover border-4 border-purple-600"
+          className="w-38 h-38 rounded-full object-cover border-4 border-purple-600"
         />
         <h2 className="mt-3 text-xl font-bold text-gray-800">Nasir Sultan</h2>
 
@@ -53,7 +61,7 @@ const ProfileCard = () => {
           >
             {skills.map((skill, index) => (
               <SwiperSlide key={index}>
-                <div className="bg-purple-100 text-purple-800 p-3 rounded-lg shadow text-center text-sm font-medium">
+                <div className="bg-purple-50 text-purple-800 p-3 rounded-lg shadow text-center text-sm font-medium">
                   {skill}
                 </div>
               </SwiperSlide>
@@ -62,15 +70,12 @@ const ProfileCard = () => {
         </div>
 
         <div className="flex flex-col gap-2 mt-4 w-full max-w-md">
-     <a
-  href="https://mail.google.com/mail/?view=cm&fs=1&to=nasir@example.com&su=Hello%20Nasir&body=I%20would%20like%20to%20connect%20with%20you"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="w-full block bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-full shadow text-center transition"
->
-  nasir@example.com
-</a>
-
+          <a
+            onClick={() => handleCopy('nasir@example.com')}
+            className="w-full block bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-full shadow text-center transition cursor-pointer"
+          >
+            nasir@example.com
+          </a>
 
           <button
             onClick={handleWhatsAppClick}
@@ -80,7 +85,7 @@ const ProfileCard = () => {
           </button>
         </div>
 
-        <div className="flex justify-center gap-6 mt-5 text-purple-600 text-2xl">
+        <div className="flex justify-center gap-6 mt-10 text-purple-600 text-2xl ">
           <FaLinkedin
             className="cursor-pointer hover:text-purple-800 transition"
             onClick={() => openSocialLink('https://linkedin.com/in/yourprofile')}
