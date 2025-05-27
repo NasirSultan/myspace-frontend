@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
     { to: '/', label: 'Home', icon: <Home size={20} /> },
     { to: '/about', label: 'About', icon: <Info size={20} /> },
     { to: '/contact', label: 'Contact', icon: <Settings size={20} /> },
-    { to: '/notifications', label: 'Alerts', icon: <Bell size={20} /> },
+    { to: '/Text', label: 'Alerts', icon: <Bell size={20} /> },
     { to: '/profile', label: 'Profile', icon: <User size={20} /> },
   ]
 
