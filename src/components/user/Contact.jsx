@@ -25,7 +25,7 @@ function App() {
     setShowSuccessBtn(false);
 
     try {
-      const res = await axios.post('https://myspace-backend.vercel.app/api/contact/api/contact', form);
+      const res = await axios.post('https://myspace-backend.vercel.app/api/contact', form);
       setMessage(res.data.message);
       setForm({ name: '', email: '', number: '', subject: '', information: '' });
       setShowSuccessBtn(true);
