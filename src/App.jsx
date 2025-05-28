@@ -1,6 +1,7 @@
 import Layout from './Layout'
 import { Routes, Route } from 'react-router-dom'
 import Home from './components/user/Home'
+import Freelance from './components/user/Freelance'
 import Experience from './components/user/Experience'
 import Profile from './components/user/Profile'
 import Contact from './components/user/Contact'
@@ -20,7 +21,7 @@ function App() {
                <Route path="/Test" element={<Test/>} />
                
       <Route path="/Experience" element={<Experience/>} />
-     
+           <Route path="/Freelance" element={<Freelance/>} />
       </Routes>
     </Layout>
   )

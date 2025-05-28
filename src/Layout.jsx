@@ -17,8 +17,8 @@ const Layout = ({ children }) => {
 
   const navItems = [
     { to: '/', label: 'Home', icon: <Home size={20} /> },
-    { to: '/Experience', label: 'portfolio', icon: <Briefcase size={20} /> },
-    { to: '/contact', label: 'Freelancing', icon: <Handshake size={20} /> },
+    { to: '/Experience', label: 'Portfolio', icon: <Briefcase size={20} /> },
+    { to: '/Freelance', label: 'Freelancing', icon: <Handshake size={20} /> },
     { to: '/Text', label: 'Articles', icon: <FileText size={20} /> },
     { to: '/profile', label: 'Profile', icon: <User size={20} /> },
   ]
