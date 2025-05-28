@@ -168,7 +168,12 @@ Route::post('/generate-invoice', [InvoiceController::class, 'generate']);
 ## Step 8: Test with Postman
 
 * **Method:** POST
-* **URL:** `http://localhost:8000/api/generate-invoice`
+* **URL:** 
+```json
+
+http://localhost:8000/api/generate-invoice
+
+```
 * **Headers:** `Content-Type: application/json`
 * **Body (raw JSON):**
 
