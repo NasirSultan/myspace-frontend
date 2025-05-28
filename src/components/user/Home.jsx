@@ -1,7 +1,7 @@
 // src/components/Homepage.jsx
 import React from "react"
 import { useEffect, useRef } from 'react';
-
+   import { Link } from 'react-router-dom';
 export default function Homepage() {
   const projectRef = useRef(null);
     useEffect(() => {
@@ -118,20 +118,24 @@ export default function Homepage() {
 
 
         <div className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto mt-6 justify-center">
-          <a
-            href="/Contact"
-            className="w-full md:w-auto lg:w-64 bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg shadow-xl hover:bg-purple-100 transition text-center text-sm md:text-base"
-            aria-label="Contact Me"
-          >
-            Contact Me
-          </a>
-          <a
-            href="/information"
-            className="w-full md:w-auto lg:w-64 bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-purple-100 transition text-center text-sm md:text-base"
-            aria-label="Information"
-          >
-            Information
-          </a>
+      
+
+<Link
+  to="/contact"
+  className="w-full md:w-auto lg:w-64 bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg shadow-xl hover:bg-purple-100 transition text-center text-sm md:text-base"
+  aria-label="Contact Me"
+>
+  Contact Form
+</Link>
+
+<Link
+  to="/Experience"
+  className="w-full md:w-auto lg:w-64 bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-purple-100 transition text-center text-sm md:text-base"
+  aria-label="Information"
+>
+  Experience
+</Link>
+
         </div>
       </section>
     </main>

@@ -87,7 +87,7 @@ export default App
 
 ```
 
-Notice we use `className` in React instead of `class`.
+Notice we use className in React instead of class.
 
 ----------
 
@@ -114,15 +114,8 @@ Open the URL shown in your terminal (usually `http://localhost:5173`) and you sh
     
 -   Used Tailwind CSS classes in React components
     
--   Ran the app with `npm run dev`
+-   Ran the app with 
     
-
+`npm run dev`
 That’s it! You’re now ready to build beautiful React apps with Tailwind CSS and Vite.
 
-----------
-
-**Written by Nasir**
-
-----------
-
-If you want, I can help you set up more advanced Tailwind features or components next!

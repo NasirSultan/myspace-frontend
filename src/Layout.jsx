@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import {
   Home,
-  Info,
-  Settings,
-  Bell,
+  Briefcase,
+  Handshake,
+  FileText,
   User,
   ChevronUp,
   ChevronDown
@@ -17,9 +17,9 @@ const Layout = ({ children }) => {
 
   const navItems = [
     { to: '/', label: 'Home', icon: <Home size={20} /> },
-    { to: '/Experience', label: 'Experience', icon: <Info size={20} /> },
-    { to: '/contact', label: 'Contact', icon: <Settings size={20} /> },
-    { to: '/Text', label: 'Alerts', icon: <Bell size={20} /> },
+    { to: '/Experience', label: 'portfolio', icon: <Briefcase size={20} /> },
+    { to: '/contact', label: 'Freelancing', icon: <Handshake size={20} /> },
+    { to: '/Text', label: 'Articles', icon: <FileText size={20} /> },
     { to: '/profile', label: 'Profile', icon: <User size={20} /> },
   ]
 
@@ -38,13 +38,10 @@ const Layout = ({ children }) => {
       }
 
       if (scrollY > 10 && scrollY < docHeight - windowHeight - 10) {
-        // somewhere in the middle, show scroll down
         setScrollDirection('down')
       } else if (scrollY >= docHeight - windowHeight - 10) {
-        // near bottom, show scroll up
         setScrollDirection('up')
       } else {
-        // near top, show scroll down
         setScrollDirection('down')
       }
     }
@@ -79,7 +76,9 @@ const Layout = ({ children }) => {
               key={to}
               to={to}
               className={`flex items-center gap-2 ${
-                location.pathname === to ? 'text-blue-600 font-semibold' : 'text-gray-700'
+                location.pathname === to
+                  ? 'text-purple-600 font-semibold'
+                  : 'text-gray-700'
               }`}
             >
               {icon}
@@ -96,7 +95,9 @@ const Layout = ({ children }) => {
             key={to}
             to={to}
             className={`flex flex-col items-center text-xs ${
-              location.pathname === to ? 'text-blue-600 font-semibold' : 'text-gray-700'
+              location.pathname === to
+                ? 'text-purple-600 font-semibold'
+                : 'text-gray-700'
             }`}
           >
             {icon}
@@ -109,7 +110,7 @@ const Layout = ({ children }) => {
       {showButton && scrollDirection && (
         <button
           onClick={handleScrollClick}
-          className="fixed bottom-20 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg z-50 hover:bg-blue-700 transition"
+          className="fixed bottom-20 right-4 bg-green-600 text-white p-3 rounded-full shadow-lg z-50 hover:bg-purple-700 transition"
           aria-label={scrollDirection === 'up' ? 'Scroll to top' : 'Scroll to bottom'}
         >
           {scrollDirection === 'up' ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
