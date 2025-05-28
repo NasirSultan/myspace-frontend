@@ -4,7 +4,7 @@ import Home from './components/user/Home'
 import Profile from './components/user/Profile'
 import Contact from './components/user/Contact'
 import Text from './components/mddata/Text'
-
+import Test from './Test'
 function App() {
   return (
     <Layout>
@@ -16,6 +16,7 @@ function App() {
                <Route path="/Contact" element={<Contact/>} />
         <Route path="/notifications" element={<h1>Notifications</h1>} />
         <Route path="/profile" element={<Profile/>} />
+               <Route path="/Test" element={<Test/>} />
       </Routes>
     </Layout>
   )
