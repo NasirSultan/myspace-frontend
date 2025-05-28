@@ -49,7 +49,7 @@ export default function MarkdownDisplay() {
     setCurrentContent('first');
     setVisible(true);
   }}
-  className="w-full h-24 bg-purple-800 text-white font-semibold px-2 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg hover:bg-purple-900 transition-colors flex items-center"
+  className="w-full cursor-pointer h-24 bg-purple-800 text-white font-semibold px-2 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg hover:bg-purple-900 transition-colors flex items-center"
 >
   {/* Icon Section - 25% */}
   <div className="w-1/4 flex justify-center">
@@ -70,7 +70,7 @@ export default function MarkdownDisplay() {
    
     <button
       onClick={handleSeeOtherArticle}
-      className="w-full h-24 bg-purple-800 text-white font-semibold px-2 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg hover:bg-purple-900 transition-colors flex items-center"
+      className="w-full cursor-pointer h-24 bg-purple-800 text-white font-semibold px-2 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg hover:bg-purple-900 transition-colors flex items-center"
     >
      <div className="w-1/4 flex justify-center">
     <Info className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -187,8 +187,8 @@ export default function MarkdownDisplay() {
 {visible && (
 <div className="fixed md:bottom-15 md:right-20 z-50 flex justify-center bottom-35 right-4">
   <button
-    onClick={() => setVisible(false)}
-    className="w-12 h-12 bg-purple-800 text-white font-semibold rounded-full shadow-lg hover:bg-purple-900 transition-colors flex items-center justify-center text-sm"
+    onClick={() => setVisible(false)} 
+    className="w-12 h-12 bg-purple-800 text-white font-semibold rounded-full shadow-lg hover:bg-purple-900 transition-colors flex items-center justify-center text-sm  cursor-pointer"
   >
     ←
   </button>
