@@ -1,6 +1,7 @@
 import Layout from './Layout'
 import { Routes, Route } from 'react-router-dom'
 import Home from './components/user/Home'
+import Portfolio from './components/user/Portfolio'
 import Freelance from './components/user/Freelance'
 import Experience from './components/user/Experience'
 import Profile from './components/user/Profile'
@@ -22,6 +23,7 @@ function App() {
                
       <Route path="/Experience" element={<Experience/>} />
            <Route path="/Freelance" element={<Freelance/>} />
+               <Route path="/Portfolio" element={<Portfolio/>} />
       </Routes>
     </Layout>
   )
