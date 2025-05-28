@@ -212,3 +212,4 @@ Creating custom facades in Laravel allows developers to abstract logic, improve 
 
 If you’re building scalable Laravel apps, I highly recommend integrating custom facades into your architecture.
 
+ [Github code](https://example.com)

@@ -126,7 +126,7 @@ export default function MarkdownDisplay() {
               />
             ),
             h2: ({ node, ...props }) => (
-              <h2 className="text-purple-700 mt-5 text-2xl font-semibold" {...props} />
+              <h2 className="text-black mt-5 text-2xl font-semibold" {...props} />
             ),
             h3: ({ node, ...props }) => (
               <h1 className="text-black mt-4 font-bold text-3xl" {...props} />
