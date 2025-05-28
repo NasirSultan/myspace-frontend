@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
 
   const navItems = [
     { to: '/', label: 'Home', icon: <Home size={20} /> },
-    { to: '/about', label: 'About', icon: <Info size={20} /> },
+    { to: '/Experience', label: 'Experience', icon: <Info size={20} /> },
     { to: '/contact', label: 'Contact', icon: <Settings size={20} /> },
     { to: '/Text', label: 'Alerts', icon: <Bell size={20} /> },
     { to: '/profile', label: 'Profile', icon: <User size={20} /> },
