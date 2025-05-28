@@ -33,10 +33,10 @@ export default function MarkdownDisplay() {
     setVisible(true);
   }
 
-  function handleShowFirstArticle() {
-    setCurrentContent('first');
-    setVisible(true);
-  }
+  // function handleShowFirstArticle() {
+  //   setCurrentContent('first');
+  //   setVisible(true);
+  // }
 
   return (
     <>
@@ -185,18 +185,15 @@ export default function MarkdownDisplay() {
       {/* Bottom buttons (when visible) */}
       {/* Bottom buttons (when visible) */}
 {visible && (
-<div className="fixed bottom-15 md:bottom-4 left-0 w-full z-50 flex justify-center">
+<div className="fixed md:bottom-15 md:right-20 z-50 flex justify-center bottom-35 right-4">
   <button
     onClick={() => setVisible(false)}
-className="w-3/4 sm:w-1/2 bg-purple-800 text-white font-normal sm:font-semibold px-6 md:py-1 rounded-lg shadow-lg hover:bg-purple-900 transition-colors text-[10px] sm:text-xs"
-
-
-
-
+    className="w-12 h-12 bg-purple-800 text-white font-semibold rounded-full shadow-lg hover:bg-purple-900 transition-colors flex items-center justify-center text-sm"
   >
-    Hide Article
+    ←
   </button>
 </div>
+
 
 )}
 
