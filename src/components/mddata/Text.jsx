@@ -4,48 +4,48 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import markdownContent from './Text.md?raw';
 import markdownContent2 from './Textt.md?raw';
-import { Info, Search } from 'lucide-react';
+import { Info, Search, Code, BookOpen } from 'lucide-react';
 
 export default function MarkdownDisplay() {
   const [content, setContent] = useState('');
   const [visible, setVisible] = useState(false);
-  const [currentContent, setCurrentContent] = useState('first'); // Track which markdown to show
+  const [currentContent, setCurrentContent] = useState('first');
   const [searchTerm, setSearchTerm] = useState('');
+  const [clickedLinks, setClickedLinks] = useState(new Set());
 
-  // Article metadata for buttons
   const articles = [
     {
       key: 'first',
       title: 'Tailwind CSS',
       description: 'Install Tailwind CSS in a React + Vite Project',
       markdown: markdownContent,
+      Icon: Code,
     },
     {
       key: 'second',
-      title: 'Article Title',
-      description: 'Click to read the full article Click to read the full article',
+      title: 'Facade',
+      description: 'Creating Custom Facades in Laravel: A Practical Guide',
       markdown: markdownContent2,
+      Icon: BookOpen,
     },
   ];
 
-  // Function to process and set markdown content with bold formatting
   function loadContent(md) {
     const replacedContent = md.replace(
       /'([\w]+(?:\s[\w]+)?)([.,!?:;])?'/g,
       (_, text, punctuation = '') => `**${text}**${punctuation}`
     );
     setContent(replacedContent);
+    setClickedLinks(new Set()); // Reset clicked links on new content load
   }
 
-  // Load content based on currentContent state
   useEffect(() => {
-    const article = articles.find(a => a.key === currentContent);
+    const article = articles.find((a) => a.key === currentContent);
     if (article) {
       loadContent(article.markdown);
     }
   }, [currentContent]);
 
-  // Filter articles by search term on title or description (case-insensitive)
   const filteredArticles = articles.filter(({ title, description }) => {
     const search = searchTerm.toLowerCase();
     return (
@@ -54,33 +54,37 @@ export default function MarkdownDisplay() {
     );
   });
 
+  // Handle link click: open link, then mark as clicked to hide link
+  function handleLinkClick(href) {
+    // open in new tab - or you can do window.location.href = href if you want same tab
+    window.open(href, '_blank', 'noopener,noreferrer');
+    setClickedLinks((prev) => new Set(prev).add(href));
+  }
+
   return (
     <>
-      {/* Search Input */}
       {!visible && (
-       
-<div className="fixed left-1/2 transform -translate-x-1/2 z-50 w-3/4 md:w-1/2 p-2">
-  <div className="relative">
-    <input
-      type="text"
-      placeholder="Search articles..."
-      className="w-full pr-10 px-4 py-2 rounded-lg border border-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-700"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-    />
-    <Search
-      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-700 pointer-events-none"
-      size={20}
-    />
-  </div>
-</div>
+        <div className="fixed left-1/2 transform -translate-x-1/2 z-50 w-3/4 md:w-1/2 p-2">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search articles..."
+              className="w-full pr-10 px-4 py-2 rounded-lg border border-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-700"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Search
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-700 pointer-events-none"
+              size={20}
+            />
+          </div>
+        </div>
       )}
 
-      {/* Top buttons when article is hidden */}
       {!visible && (
         <div className="fixed left-1/2 transform -translate-x-1/2 z-50 flex flex-col space-y-4 w-3/4 md:w-1/2 mt-16">
           {filteredArticles.length > 0 ? (
-            filteredArticles.map(({ key, title, description }) => (
+            filteredArticles.map(({ key, title, description, Icon }) => (
               <button
                 key={key}
                 onClick={() => {
@@ -89,16 +93,11 @@ export default function MarkdownDisplay() {
                 }}
                 className="w-full cursor-pointer h-24 bg-purple-800 text-white font-semibold px-2 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg hover:bg-purple-900 transition-colors flex items-center"
               >
-                {/* Icon Section - 25% */}
                 <div className="w-1/4 flex justify-center">
-                  <Info className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
-
-                {/* Text Section - 75% */}
                 <div className="w-3/4 flex flex-col items-start justify-center text-left pl-3 sm:pl-4">
-                  <h3 className="text-base sm:text-lg font-semibold truncate w-full">
-                    {title}
-                  </h3>
+                  <h3 className="text-base sm:text-lg font-semibold truncate w-full">{title}</h3>
                   <p className="text-xs sm:text-sm font-normal">{description}</p>
                 </div>
               </button>
@@ -111,7 +110,6 @@ export default function MarkdownDisplay() {
         </div>
       )}
 
-      {/* Markdown content */}
       <div
         className={`max-w-5xl mx-auto p-8 bg-gray-50 rounded-lg shadow-md text-gray-800 font-sans leading-relaxed
                     sm:max-w-3xl sm:p-6 sm:text-base
@@ -123,7 +121,7 @@ export default function MarkdownDisplay() {
             h1: ({ node, ...props }) => (
               <h1
                 className="border-b-2 border-purple-700 pb-1 mt-6 font-extrabold
-                           text-5xl lg:text-6xl md:text-4xl sm:text-3xl xs:text-2xl text-purple-700"
+                           text-2xl lg:text-4xl md:text-3xl sm:text-3xl xs:text-2xl text-purple-700"
                 {...props}
               />
             ),
@@ -181,12 +179,25 @@ export default function MarkdownDisplay() {
                 </SyntaxHighlighter>
               );
             },
-            a: ({ node, ...props }) => (
-              <a
-                className="text-purple-700 underline hover:text-purple-900 transition-colors cursor-pointer"
-                {...props}
-              />
-            ),
+            a: ({ node, href, children, ...props }) => {
+              if (clickedLinks.has(href)) {
+                // After click, show just text, no link
+                return <span>{children}</span>;
+              }
+              return (
+                <a
+                  href={href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick(href);
+                  }}
+                  className="text-purple-700 underline hover:text-purple-900 transition-colors cursor-pointer"
+                  {...props}
+                >
+                  {children}
+                </a>
+              );
+            },
             blockquote: ({ node, ...props }) => (
               <blockquote
                 className="border-l-4 border-purple-700 pl-4 italic text-gray-600 bg-purple-50 rounded mb-4"
@@ -202,12 +213,12 @@ export default function MarkdownDisplay() {
         </ReactMarkdown>
       </div>
 
-      {/* Bottom buttons (when visible) */}
       {visible && (
         <div className="fixed md:bottom-15 md:right-20 z-50 flex justify-center bottom-35 right-4">
           <button
             onClick={() => setVisible(false)}
             className="w-12 h-12 bg-purple-800 text-white font-semibold rounded-full shadow-lg hover:bg-purple-900 transition-colors flex items-center justify-center text-sm cursor-pointer"
+            aria-label="Go back"
           >
             ←
           </button>

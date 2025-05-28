@@ -1,5 +1,5 @@
 
-### Install Tailwind CSS in a React + Vite Project
+# Install Tailwind CSS in a React + Vite Project
 
 _By Nasir_
 

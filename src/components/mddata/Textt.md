@@ -1,128 +1,209 @@
+# Creating Custom Facades in Laravel: A Practical Guide
 
-### Install Tailwind CSS in a React + Vite Project practice 
+Laravel offers a powerful and expressive syntax for building web applications. One standout feature is **Facades** — they provide a static-like interface to classes that are registered in Laravel's service container.
 
-_By Nasir_
+In this guide, I’ll walk you through creating a custom facade in Laravel, integrating it with a controller, and testing it using Postman. This approach is perfect for wrapping reusable service logic like invoice generation, SMS services, or third-party APIs.
 
-Tailwind CSS is a popular utility-first CSS framework that makes styling your React apps super fast and easy. In this article, I'll show you how to quickly install and configure Tailwind CSS in a React project using Vite as your build tool.
+---
 
-----------
+## What We Will Build
 
-## Step 1: Create a new React + Vite project (optional)
+A simple invoice generator for a car company (e.g., Toyota). We will:
 
-If you don’t have a React + Vite project yet, create one with the following command:
+* Create a custom **Invoice** service class
+* Wrap it with a custom **InvoiceFacade**
+* Bind it in the service container
+* Use it via a controller and API route
+* Test it using Postman
 
-```bash
-npm create vite@latest my-react-app -- --template react
-cd my-react-app
+---
 
-```
-
-If you already have a Vite + React project, just open it.
-
-----------
-
-## Step 2: Install Tailwind CSS and the Vite plugin
-
-Run this command to install Tailwind CSS along with the official Vite plugin for Tailwind:
+## Step 1: Create a New Laravel Project
 
 ```bash
-npm install tailwindcss @tailwindcss/vite
-
+laravel new custom-facade-app
+# OR
+composer create-project laravel/laravel custom-facade-app
+cd custom-facade-app
 ```
 
-----------
+---
 
-## Step 3: Configure Vite to use Tailwind CSS plugin
+## Step 2: Create the Service Class
 
-Open your `vite.config.js` or `vite.config.ts` file and update it as follows:
+Create a folder for services and add the `Invoice` class:
 
-```js
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-})
-
+```bash
+mkdir app/Services
+touch app/Services/Invoice.php
 ```
 
-This tells Vite to use both the React plugin and the Tailwind CSS plugin during build.
+Add the following code:
 
-----------
+```php
+<?php
 
-## Step 4: Add Tailwind CSS to your main CSS file
+namespace App\Services;
 
-Create or open your `src/index.css` file (or wherever your main CSS file is). Add this at the top:
-
-```css
-@import "tailwindcss";
-
-```
-
-This imports Tailwind’s base styles and utilities into your project.
-
-----------
-
-## Step 5: Use Tailwind CSS classes in your React components
-
-Here’s a simple example of a React component using Tailwind classes:
-
-```jsx
-import React from 'react'
-import './index.css'
-
-function App() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
-  )
+class Invoice
+{
+    public function generate(string $name, float $amount): array
+    {
+        return [
+            'company' => 'Toyota',
+            'customer' => $name,
+            'amount' => $amount,
+            'status' => 'Invoice Generated'
+        ];
+    }
 }
-
-export default App
-
 ```
 
-Notice we use `className` in React instead of `class`.
+---
 
-----------
+## Step 3: Create the Facade
 
-## Step 6: Run your app
-
-Start the development server:
+Create a folder for facades and add `InvoiceFacade.php`:
 
 ```bash
-npm run dev
-
+mkdir app/Facades
+touch app/Facades/InvoiceFacade.php
 ```
 
-Open the URL shown in your terminal (usually `http://localhost:5173`) and you should see the “Hello world!” text styled with Tailwind CSS.
+Paste this code:
 
-----------
+```php
+<?php
 
-## Summary
+namespace App\Facades;
 
--   Installed Tailwind CSS and the Vite plugin
-    
--   Configured Vite to use Tailwind plugin
-    
--   Imported Tailwind CSS in the main CSS file
-    
--   Used Tailwind CSS classes in React components
-    
--   Ran the app with `npm run dev`
-    
+use Illuminate\Support\Facades\Facade;
 
-That’s it! You’re now ready to build beautiful React apps with Tailwind CSS and Vite.
+class InvoiceFacade extends Facade
+{
+    protected static function getFacadeAccessor()
+    {
+        return 'invoice';
+    }
+}
+```
 
-----------
+---
 
-**Written by Nasir**
+## Step 4: Bind the Service in `AppServiceProvider`
 
-----------
+Open `app/Providers/AppServiceProvider.php` and update the `register()` method:
 
-If you want, I can help you set up more advanced Tailwind features or components next!
+```php
+use App\Services\Invoice;
+
+public function register()
+{
+    $this->app->singleton('invoice', function () {
+        return new Invoice();
+    });
+}
+```
+
+---
+
+## Step 5: Add Alias in `config/app.php`
+
+Open `config/app.php` and add to the aliases array:
+
+```php
+'Invoice' => App\Facades\InvoiceFacade::class,
+```
+
+---
+
+## Step 6: Create the Controller
+
+Run the command:
+
+```bash
+php artisan make:controller InvoiceController
+```
+
+Then open `app/Http/Controllers/InvoiceController.php` and add:
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Invoice;
+
+class InvoiceController extends Controller
+{
+    public function generate(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'amount' => 'required|numeric'
+        ]);
+
+        $invoice = Invoice::generate($request->name, $request->amount);
+
+        return response()->json($invoice);
+    }
+}
+```
+
+---
+
+## Step 7: Define the API Route
+
+Open `routes/api.php` and add:
+
+```php
+use App\Http\Controllers\InvoiceController;
+
+Route::post('/generate-invoice', [InvoiceController::class, 'generate']);
+```
+
+---
+
+## Step 8: Test with Postman
+
+* **Method:** POST
+* **URL:** `http://localhost:8000/api/generate-invoice`
+* **Headers:** `Content-Type: application/json`
+* **Body (raw JSON):**
+
+```json
+{
+  "name": "Jane Doe",
+  "amount": 25000
+}
+```
+
+**Expected Response:**
+
+```json
+{
+  "company": "Toyota",
+  "customer": "Jane Doe",
+  "amount": 25000,
+  "status": "Invoice Generated"
+}
+```
+
+---
+
+## Benefits of Custom Facades
+
+* Cleaner and centralized logic
+* Easy to mock for testing
+* Reusable across controllers, services, and jobs
+* Makes your codebase more maintainable
+
+---
+
+## Final Thoughts
+
+Creating custom facades in Laravel allows developers to abstract logic, improve code readability, and follow a service-oriented architecture. Whether you’re working on invoicing, notifications, or APIs, facades make your services accessible and consistent.
+
+If you’re building scalable Laravel apps, I highly recommend integrating custom facades into your architecture.
+
